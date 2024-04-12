@@ -116,7 +116,12 @@ namespace ConnectFour
     {
         static void Main(string[] args)
         {
+            char[,] board = InitializeBoard();
+            char currentPlayer = 'X';
 
+            DropPiece(board, currentPlayer);
+
+            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
         }
     }
 }
