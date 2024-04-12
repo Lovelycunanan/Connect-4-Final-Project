@@ -16,7 +16,7 @@ namespace ConnectFour
         }
     }
     
-    private void DisplayBoard()
+    private void DisplayBoard(char[,] board)
     {
         for (int row = 0; row < Rows; row++)
         {
@@ -28,9 +28,23 @@ namespace ConnectFour
         }
     }
 
-    private bool DropPiece()
+    private bool DropPiece(char[,] board, char player)
     {
-        
+        Console.WriteLine($"Player {player}, enter the column number (0-{Cols - 1}):");
+        int col;
+
+        while (!int.TryParse(Console.Readline(), out col) || col <0 || col >= Cols || board[0, col] != '-')
+        {
+            Console.WriteLine("Invalid input. Enter a valid column number (0-{Cols - 1}):");
+        }
+
+        for (int row = Rows -1; row >=0; row--)
+        {
+            if (board[row, col] == '-')
+            {
+                board[row, col] = player;
+                break;
+            }
     }
 
     private bool WinningConditions()
