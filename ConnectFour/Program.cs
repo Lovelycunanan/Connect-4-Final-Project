@@ -46,6 +46,7 @@ namespace ConnectFour
                 board[row, col] = player;
                 break;
             }
+        }
     }
 
     private bool WinningConditions()
@@ -120,9 +121,14 @@ namespace ConnectFour
             char[,] board = InitializeBoard();
             char currentPlayer = 'X';
 
-            DropPiece(board, currentPlayer);
-
-            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            while (true)
+            {
+                DisplayBoard(board);
+                if (DropPiece(board, currentPlayer))
+                {
+                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                }
+            }
         }
     }
 }
