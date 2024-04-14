@@ -5,8 +5,9 @@ namespace ConnectFour
     const int Rows = 6;
     const int Cols = 7;
 
-    private void InitializeBoard()
+    private static char[,] InitializeBoard()
     {
+        char[,] board = new char[Rows, Cols];
         for (int row = 0; row < Rows; row++)
         {
             for (int col = 0; col < Cols; col++)
