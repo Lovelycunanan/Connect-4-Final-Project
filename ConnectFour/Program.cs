@@ -127,6 +127,15 @@ namespace ConnectFour
                 if (DropPiece(board, currentPlayer))
                 {
                     currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                    if (WinningConditions(board, currentPlayer))
+                    {
+                        Console.WriteLine($"Player {currentPlayer} wins");
+                        break;
+                    }
+                }
+                else 
+                {
+                    Console.WriteLine("Column is full. Please choose another column.");
                 }
             }
         }
