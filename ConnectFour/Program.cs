@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ConnectFour
 {
@@ -7,7 +8,7 @@ namespace ConnectFour
         const int Rows = 6;
         const int Cols = 7;
     
-        private static char[,] InitializeBoard()
+        static char[,] InitializeBoard()
         {
             char[,] board = new char[Rows, Cols];
             for (int row = 0; row < Rows; row++)
@@ -17,9 +18,10 @@ namespace ConnectFour
                     board[row, col] = '-';
                 }
             }
+            return board;
         }
         
-        private void DisplayBoard(char[,] board)
+        static void DisplayBoard(char[,] board)
         {
             // display board
             for (int row = 0; row < Rows; row++)
@@ -38,17 +40,17 @@ namespace ConnectFour
             Console.WriteLine("  1 2 3 4 5 6 7");
         }
     
-        private bool DropPiece(char[,] board, char player)
+        static bool DropPiece(char[,] board, char player, Dictionary<char, string> playerNames)
         {
-            Console.WriteLine($"Player {player}, enter the column number (1-{Cols}):");
+            Console.WriteLine($"Player {playerNames[player]}, enter the column number (1-{Cols}):");
             int col;
     
-            while (!int.TryParse(Console.Readline(), out col) || col <0 || col >= Cols || board[0, col] != '-')
+            while (!int.TryParse(Console.ReadLine(), out col) || col < 1 || col > Cols || board[0, col - 1] != '-')
             {
-                Console.WriteLine("Invalid input. Enter a valid column number (0-{Cols}):");
+                Console.WriteLine($"Invalid input. Enter a valid column number (1-{Cols}):");
             }
     
-            for (int row = Rows -1; row >=0; row--)
+            for (int row = Rows - 1; row >= 0; row--)
             {
                 if (board[row, col - 1] == '-')
                 {
@@ -59,7 +61,7 @@ namespace ConnectFour
             return false;
         }
     
-        private bool WinningConditions()
+        static bool WinningConditions(char[,] board, char player)
         {
             // Horizontal
             for (int row = 0; row < Rows; row++)
@@ -69,7 +71,7 @@ namespace ConnectFour
                     if (board[row, col] == player &&
                         board[row, col + 1] == player &&
                         board[row, col + 2] == player &&
-                        board[row, col + 3] == player &&)
+                        board[row, col + 3] == player)
                     {
                         return true;
                     }
@@ -77,14 +79,14 @@ namespace ConnectFour
             }
     
             // Vertical
-            for (int row = 0; row < Rows - 4; row++)
+            for (int row = 0; row <= Rows - 4; row++)
             {
-                for (int col = 0; col <= Cols; col++)
+                for (int col = 0; col < Cols; col++)
                 {
                     if (board[row, col] == player &&
                         board[row + 1, col] == player &&
                         board[row + 2, col] == player &&
-                        board[row + 3, col] == player &&)
+                        board[row + 3, col] == player)
                     {
                         return true;
                     }
@@ -92,14 +94,14 @@ namespace ConnectFour
             }
     
             // Diagonally: bottom-left to top-right
-            for (int row = 0; row < Rows - 4; row++)
+            for (int row = 0; row <= Rows - 4; row++)
             {
                 for (int col = 0; col <= Cols - 4; col++)
                 {
                     if (board[row, col] == player &&
                         board[row + 1, col + 1] == player &&
                         board[row + 2, col + 2] == player &&
-                        board[row + 3, col + 3] == player &&)
+                        board[row + 3, col + 3] == player)
                     {
                         return true;
                     }
@@ -112,9 +114,9 @@ namespace ConnectFour
                 for (int col = 0; col <= Cols - 4; col++)
                 {
                     if (board[row, col] == player &&
-                        board[row + 1, col + 1] == player &&
-                        board[row + 2, col + 2] == player &&
-                        board[row + 3, col + 3] == player &&)
+                        board[row - 1, col + 1] == player &&
+                        board[row - 2, col + 2] == player &&
+                        board[row - 3, col + 3] == player)
                     {
                         return true;
                     }
@@ -130,6 +132,12 @@ namespace ConnectFour
             string player1Name = Console.ReadLine();
             Console.WriteLine("Enter Player 2 name: ");
             string player2Name = Console.ReadLine();
+
+            Dictionary<char, string> playerNames = new Dictionary<char, string>()
+            {
+                { 'X', player1Name },
+                { 'O', player2Name }
+            };
             
             char[,] board = InitializeBoard();
             char currentPlayer = 'X';
@@ -137,7 +145,7 @@ namespace ConnectFour
             while (true)
             {
                 DisplayBoard(board);
-                if (DropPiece(board, currentPlayer))
+                if (DropPiece(board, currentPlayer, playerNames))
                 {
                     if (WinningConditions(board, currentPlayer))
                     {
