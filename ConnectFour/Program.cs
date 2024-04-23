@@ -139,12 +139,12 @@ namespace ConnectFour
                 DisplayBoard(board);
                 if (DropPiece(board, currentPlayer))
                 {
-                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
                     if (WinningConditions(board, currentPlayer))
                     {
-                        Console.WriteLine($"Player {currentPlayer} wins");
+                        Console.WriteLine($"Player {currentPlayer} ({(currentPlayer == 'X' ? player1Name : player2Name)}) wins!");
                         break;
                     }
+                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
                 }
                 else 
                 {
