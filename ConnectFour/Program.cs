@@ -126,6 +126,11 @@ namespace ConnectFour
     
         static void Main(string[] args)
         {
+            Console.WriteLine("Enter Player 1 name: ");
+            string player1Name = Console.ReadLine();
+            Console.WriteLine("Enter Player 2 name: ");
+            string player2Name = Console.ReadLine();
+            
             char[,] board = InitializeBoard();
             char currentPlayer = 'X';
 
