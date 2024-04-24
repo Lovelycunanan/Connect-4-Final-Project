@@ -128,36 +128,44 @@ namespace ConnectFour
     
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter Player 1 name: ");
-            string player1Name = Console.ReadLine();
-            Console.WriteLine("Enter Player 2 name: ");
-            string player2Name = Console.ReadLine();
-
-            Dictionary<char, string> playerNames = new Dictionary<char, string>()
+            bool playAgain = true;
+            while (playAgain)
             {
-                { 'X', player1Name },
-                { 'O', player2Name }
-            };
-            
-            char[,] board = InitializeBoard();
-            char currentPlayer = 'X';
-
-            while (true)
-            {
-                DisplayBoard(board);
-                if (DropPiece(board, currentPlayer, playerNames))
+                Console.WriteLine("Enter Player 1 name: ");
+                string player1Name = Console.ReadLine();
+                Console.WriteLine("Enter Player 2 name: ");
+                string player2Name = Console.ReadLine();
+    
+                Dictionary<char, string> playerNames = new Dictionary<char, string>()
                 {
-                    if (WinningConditions(board, currentPlayer))
+                    { 'X', player1Name },
+                    { 'O', player2Name }
+                };
+                
+                char[,] board = InitializeBoard();
+                char currentPlayer = 'X';
+    
+                while (true)
+                {
+                    DisplayBoard(board);
+                    if (DropPiece(board, currentPlayer, playerNames))
                     {
-                        Console.WriteLine($"Player {currentPlayer} ({(currentPlayer == 'X' ? player1Name : player2Name)}) wins!");
-                        break;
+                        if (WinningConditions(board, currentPlayer))
+                        {
+                            Console.WriteLine($"Player {currentPlayer} ({(currentPlayer == 'X' ? player1Name : player2Name)}) wins!");
+                            break;
+                        }
+                        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
                     }
-                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                    else 
+                    {
+                        Console.WriteLine("Column is full. Please choose another column.");
+                    }
                 }
-                else 
-                {
-                    Console.WriteLine("Column is full. Please choose another column.");
-                }
+
+                Console.WriteLine("Do you want to play again? (yes/no)");
+                string answer = Console.ReadLine();
+                playAgain = (answer.ToLower() == "yes");
             }
         }
     }
