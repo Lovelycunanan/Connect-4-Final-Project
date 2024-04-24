@@ -131,10 +131,26 @@ namespace ConnectFour
             bool playAgain = true;
             while (playAgain)
             {
-                Console.WriteLine("Enter Player 1 name: ");
-                string player1Name = Console.ReadLine();
-                Console.WriteLine("Enter Player 2 name: ");
-                string player2Name = Console.ReadLine();
+                Console.WriteLine("Choose the game mode: ");
+                Console.WriteLine("1. Two Players");
+                Console.WriteLine("2. Player vs AI");
+                Console.Write("Enter your choice: ");
+                int choice;
+
+                string player1Name, player2Name;
+                if (choice == 1)
+                {
+                    Console.WriteLine("Enter Player 1 name: ");
+                    string player1Name = Console.ReadLine();
+                    Console.WriteLine("Enter Player 2 name: ");
+                    string player2Name = Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Enter player name: ");
+                    player1Name = Console.ReadLine();
+                    player2Name = "AI";
+                }
     
                 Dictionary<char, string> playerNames = new Dictionary<char, string>()
                 {
