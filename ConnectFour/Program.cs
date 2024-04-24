@@ -7,6 +7,7 @@ namespace ConnectFour
     {
         const int Rows = 6;
         const int Cols = 7;
+        static Random random = new Random();
     
         static char[,] InitializeBoard()
         {
@@ -59,6 +60,13 @@ namespace ConnectFour
                 }
             }
             return false;
+        }
+
+        static bool DropPieceAI(char[,] board, char player, Dictionary<char, string> playerNames)
+        {
+            Console.WriteLine($"Player {playerNames[player]} is making a move...");
+
+            int col
         }
     
         static bool WinningConditions(char[,] board, char player)
