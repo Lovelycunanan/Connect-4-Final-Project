@@ -66,7 +66,17 @@ namespace ConnectFour
         {
             Console.WriteLine($"Player {playerNames[player]} is making a move...");
 
-            int col
+            int col = random.Next(1, Cols + 1);
+
+            for (int row = Rows - 1; row >= 0; row--)
+            {
+                if (board[row, col -1] == '-')
+                {
+                    board[row, col - 1] == '-' = player;
+                    return true;
+                }
+            }
+            return false;
         }
     
         static bool WinningConditions(char[,] board, char player)
