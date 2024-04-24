@@ -155,6 +155,11 @@ namespace ConnectFour
                 Console.Write("Enter your choice: ");
                 int choice;
 
+                while (!int.TryParse(Console.Readline(), out choice) || (choice != 1 && choice != 2))
+                {
+                    Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                }
+
                 string player1Name, player2Name;
                 if (choice == 1)
                 {
@@ -182,18 +187,33 @@ namespace ConnectFour
                 while (true)
                 {
                     DisplayBoard(board);
-                    if (DropPiece(board, currentPlayer, playerNames))
+                    if (choice == 1 || currentPlayer == 'X')
                     {
-                        if (WinningConditions(board, currentPlayer))
+                        if (DropPiece(board, currentPlayer, playerNames))
                         {
-                            Console.WriteLine($"Player {currentPlayer} ({(currentPlayer == 'X' ? player1Name : player2Name)}) wins!");
-                            break;
+                            if (WinningConditions(board, currentPlayer))
+                            {
+                                Console.WriteLine($"Player {currentPlayer} ({(currentPlayer == 'X' ? player1Name : player2Name)}) wins!");
+                                break;
+                            }
+                            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
                         }
-                        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                        else 
+                        {
+                            Console.WriteLine("Column is full. Please choose another column.");
+                        }
                     }
-                    else 
+                    else
                     {
-                        Console.WriteLine("Column is full. Please choose another column.");
+                        if (DropPieceAI(board, currentPlayer, playerNames))
+                        {
+                            if (WinningConditions(board, currentPlayer))
+                            {
+                                Console.WriteLine($"Player {currentPlayer} ({playerNames[currentPlayer]}) wins!");
+                                break;
+                            }
+                            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                        }
                     }
                 }
 
