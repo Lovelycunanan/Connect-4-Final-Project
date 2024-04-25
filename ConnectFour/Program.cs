@@ -66,13 +66,14 @@ namespace ConnectFour
         {
             Console.WriteLine($"Player {playerNames[player]} is making a move...");
 
+            // Picks a random number from 1-7
             int col = random.Next(1, Cols + 1);
 
             for (int row = Rows - 1; row >= 0; row--)
             {
                 if (board[row, col -1] == '-')
                 {
-                    board[row, col - 1] == '-' = player;
+                    board[row, col - 1] = player;
                     return true;
                 }
             }
@@ -149,13 +150,14 @@ namespace ConnectFour
             bool playAgain = true;
             while (playAgain)
             {
+                // User can choose a game mode: Two player game or Player vs AI
                 Console.WriteLine("Choose the game mode: ");
                 Console.WriteLine("1. Two Players");
                 Console.WriteLine("2. Player vs AI");
                 Console.Write("Enter your choice: ");
                 int choice;
 
-                while (!int.TryParse(Console.Readline(), out choice) || (choice != 1 && choice != 2))
+                while (!int.TryParse(Console.ReadLine(), out choice) || (choice != 1 && choice != 2))
                 {
                     Console.WriteLine("Invalid input. Please enter 1 or 2.");
                 }
@@ -163,13 +165,15 @@ namespace ConnectFour
                 string player1Name, player2Name;
                 if (choice == 1)
                 {
+                    // Takes the players names, so it's easier to know who's turn it is
                     Console.WriteLine("Enter Player 1 name: ");
-                    string player1Name = Console.ReadLine();
+                    player1Name = Console.ReadLine();
                     Console.WriteLine("Enter Player 2 name: ");
-                    string player2Name = Console.ReadLine();
+                    player2Name = Console.ReadLine();
                 }
                 else
                 {
+                    // Takes the only player's name
                     Console.WriteLine("Enter player name: ");
                     player1Name = Console.ReadLine();
                     player2Name = "AI";
@@ -217,6 +221,7 @@ namespace ConnectFour
                     }
                 }
 
+                // Asks the player if they want to continue playing
                 Console.WriteLine("Do you want to play again? (yes/no)");
                 string answer = Console.ReadLine();
                 playAgain = (answer.ToLower() == "yes");
